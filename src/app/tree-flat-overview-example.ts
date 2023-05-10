@@ -144,6 +144,7 @@ interface ExampleFlatNode {
 @Component({
   selector: 'tree-flat-overview-example',
   templateUrl: 'tree-flat-overview-example.html',
+  styleUrls: ['tree-flat-overview-example.css'],
 })
 export class TreeFlatOverviewExample {
   private _transformer = (node: FoodNode, level: number) => {
@@ -240,7 +241,3 @@ export class TreeFlatOverviewExample {
   (cdkDragDropped)="dragDropped($event,node)"
   */
 }
-
-/**  Copyright 2023 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at https://angular.io/license */

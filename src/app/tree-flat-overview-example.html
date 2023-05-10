@@ -13,6 +13,7 @@
       *matTreeNodeDef="let node"
       matTreeNodePadding
       cdkDrag
+      [ngClass]=""
       [id]="'node-'+node.id"
       [cdkDragData]="node"
       (cdkDragStarted)="dragStarted($event,node)"
@@ -28,6 +29,7 @@
       *matTreeNodeDef="let node;when: hasChild"
       matTreeNodePadding
       cdkDrag
+      [ngClass]=""
       [id]="'node-'+node.id"
       [cdkDragData]="node"
       (cdkDragStarted)="dragStarted($event,node)"
@@ -63,6 +65,7 @@
       *matTreeNodeDef="let node"
       matTreeNodePadding
       cdkDrag
+      [ngClass]=""
       [id]="'node-'+node.id"
       [cdkDragData]="node"
       (cdkDragStarted)="dragStarted($event,node)"
@@ -78,6 +81,7 @@
       *matTreeNodeDef="let node;when: hasChild"
       matTreeNodePadding
       cdkDrag
+      [ngClass]=""
       [id]="'node-'+node.id"
       [cdkDragData]="node"
       (cdkDragStarted)="dragStarted($event,node)"
