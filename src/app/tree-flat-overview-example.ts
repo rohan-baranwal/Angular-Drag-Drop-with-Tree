@@ -150,7 +150,6 @@ export class TreeFlatOverviewExample {
   currentEnteredId: string;
   draggingData: ExampleFlatNode | null;
   dragging: boolean = false;
-  pathOfDrop: string[] = [];
 
   private _transformer = (node: FoodNode, level: number) => {
     return {
@@ -208,18 +207,14 @@ export class TreeFlatOverviewExample {
     console.log('Drag started -> ', started, node);
   }
   public dragReleased(released: any, node: any) {
-    this.dragging = false;
-    this.pathOfDrop = [];
-    const droppedLocation = this.treeControl.dataNodes.find(
-      (n) => n.id === this.currentEnteredId
-    );
     console.log(
       'Drag released -> ',
       this.getPath(this.dataSource.data, this.currentEnteredId),
       this.dataSource.data,
-      this.dataSource2.data,
+      // this.dataSource2.data,
       this.currentEnteredId
     );
+    this.dragging = false;
     this.draggingData = null;
   }
   public dragMoved(moved: any, node: any) {
