@@ -245,21 +245,11 @@ export class TreeFlatOverviewExample {
     return '';
   }
 
-  // getPath(object: FoodNode, search: string): string[] {
-  //   if (object.id === search) return [object.name];
-  //   else if ((object.children) || Array.isArray(object)) {
-  //       let children = object.children;
-  //       for (let child of children) {
-  //           let result = this.getPath(child, search);
-  //           if (result) {
-  //               if (object.id )result.unshift(object.name);
-  //               return result;
-  //           }
-  //       }
-  //   }
-  // }
-
-  getPath(data: FoodNode[], nodeId: string, res: string[] = []): string[] | undefined {
+  getPath(
+    data: FoodNode[],
+    nodeId: string,
+    res: string[] = []
+  ): string[] | undefined {
     for (let node of data) {
       if (node.id === nodeId) {
         return res.concat(node.id);
@@ -273,18 +263,6 @@ export class TreeFlatOverviewExample {
     return undefined;
   }
 
-  // const getAncestors = (target, children, ancestors = []) => {
-  //   for (let node of children) {
-  //     if (node.id === target) {
-  //       return ancestors.concat(node.id);
-  //     }
-  //     const found = getAncestors(target, node.children, ancestors.concat(node.id));
-  //     if (found) {
-  //       return found;
-  //     }
-  //   }
-  //   return undefined;
-  // };
   /*
   cdkDragStarted
   cdkDragReleased
