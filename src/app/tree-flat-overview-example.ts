@@ -147,6 +147,8 @@ interface ExampleFlatNode {
   styleUrls: ['tree-flat-overview-example.css'],
 })
 export class TreeFlatOverviewExample {
+  currentEnteredId: string;
+  dragging: boolean = false;
   private _transformer = (node: FoodNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -192,15 +194,19 @@ export class TreeFlatOverviewExample {
     console.log('Mouse Up -> ', node);
   }
   public mouseEnterFunction(e: any, node: any) {
-    console.log('Entered -> ', node);
+    this.currentEnteredId = this.dragging ? node.id : null;
+    document.getElementById;
+    console.log('Entered -> ', node, this.currentEnteredId);
   }
   public mouseOutFunction(node: any) {
     console.log('Outed -> ', node);
   }
   public dragStarted(started: any, node: any) {
+    this.dragging = true;
     console.log('Drag started -> ', started, node);
   }
   public dragReleased(released: any, node: any) {
+    this.dragging = false;
     console.log('Drag released -> ', released, node);
   }
   public dragMoved(moved: any, node: any) {
@@ -217,6 +223,14 @@ export class TreeFlatOverviewExample {
   }
   public dragDropped(dropped: any, node: any) {
     console.log('Drag dropped -> ', dropped, node);
+  }
+
+  public getHighlightClass(node: ExampleFlatNode): string {
+    console.log(node.id, this.currentEnteredId, this.dragging);
+    if (this.dragging && node.id === this.currentEnteredId) {
+      return 'highlight-entered';
+    }
+    return '';
   }
   /*
   cdkDragStarted
