@@ -150,6 +150,8 @@ export class TreeFlatOverviewExample {
   currentEnteredId: string;
   draggingData: ExampleFlatNode | null;
   dragging: boolean = false;
+  pathOfDrop: string[] = [];
+
   private _transformer = (node: FoodNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -177,8 +179,6 @@ export class TreeFlatOverviewExample {
   constructor() {
     this.dataSource.data = TREE_DATA;
     this.dataSource2.data = TREE_DATA2;
-
-    console.log(this);
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
@@ -209,6 +209,7 @@ export class TreeFlatOverviewExample {
   }
   public dragReleased(released: any, node: any) {
     this.dragging = false;
+    this.pathOfDrop = [];
     const droppedLocation = this.treeControl.dataNodes.find(
       (n) => n.id === this.currentEnteredId
     );
@@ -216,7 +217,8 @@ export class TreeFlatOverviewExample {
       'Drag released -> ',
       this.getPath(this.dataSource.data, this.currentEnteredId),
       this.dataSource.data,
-      this.dataSource2.data
+      this.dataSource2.data,
+      this.currentEnteredId
     );
     this.draggingData = null;
   }
@@ -257,20 +259,45 @@ export class TreeFlatOverviewExample {
   //   }
   // }
 
-  getPath(data: FoodNode[], nodeId: string) {
-    let result: string[] = [];
-    data.forEach((node) => {
+  getPath(data: FoodNode[], nodeId: string, res: string[] = []): string[] | undefined {
+    for (let node of data) {
       if (node.id === nodeId) {
-        result.push(node.id);
+        return res.concat(node.id);
       } else if (node.children) {
-        let found = this.getPath(node.children, nodeId);
-        if (found.length) {
-          result = result.concat(node.id);
+        const found = this.getPath(node.children, nodeId, res.concat(node.id));
+        if (found) {
+          return found;
         }
       }
-    });
-    return result;
+    }
+    return undefined;
+
+    // data.forEach((node) => {
+    //   if (node.id === nodeId) {
+    //     this.pathOfDrop.push(node.id);
+    //   } else if (node.children) {
+    //     let found = this.getPath(node.children, nodeId);
+    //     if (found.length) {
+    //       this.pathOfDrop.push(node.id);
+    //       // return this.pathOfDrop;
+    //     }
+    //   }
+    // });
+    // return this.pathOfDrop;
   }
+
+  // const getAncestors = (target, children, ancestors = []) => {
+  //   for (let node of children) {
+  //     if (node.id === target) {
+  //       return ancestors.concat(node.id);
+  //     }
+  //     const found = getAncestors(target, node.children, ancestors.concat(node.id));
+  //     if (found) {
+  //       return found;
+  //     }
+  //   }
+  //   return undefined;
+  // };
   /*
   cdkDragStarted
   cdkDragReleased
