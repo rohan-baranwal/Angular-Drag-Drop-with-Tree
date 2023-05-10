@@ -148,6 +148,7 @@ interface ExampleFlatNode {
 })
 export class TreeFlatOverviewExample {
   currentEnteredId: string;
+  draggingData: ExampleFlatNode | null;
   dragging: boolean = false;
   private _transformer = (node: FoodNode, level: number) => {
     return {
@@ -196,18 +197,28 @@ export class TreeFlatOverviewExample {
   public mouseEnterFunction(e: any, node: any) {
     this.currentEnteredId = this.dragging ? node.id : null;
     document.getElementById;
-    console.log('Entered -> ', node, this.currentEnteredId);
+    // console.log('Entered -> ', node, this.currentEnteredId);
   }
   public mouseOutFunction(node: any) {
     console.log('Outed -> ', node);
   }
   public dragStarted(started: any, node: any) {
     this.dragging = true;
+    this.draggingData = node;
     console.log('Drag started -> ', started, node);
   }
   public dragReleased(released: any, node: any) {
     this.dragging = false;
-    console.log('Drag released -> ', released, node);
+    const droppedLocation = this.treeControl.dataNodes.find(
+      (n) => n.id === this.currentEnteredId
+    );
+    console.log(
+      'Drag released -> ',
+      this.getPath(this.dataSource.data, this.currentEnteredId),
+      this.dataSource.data,
+      this.dataSource2.data
+    );
+    this.draggingData = null;
   }
   public dragMoved(moved: any, node: any) {
     console.log('Drag moved -> ', moved, node);
@@ -226,11 +237,39 @@ export class TreeFlatOverviewExample {
   }
 
   public getHighlightClass(node: ExampleFlatNode): string {
-    console.log(node.id, this.currentEnteredId, this.dragging);
     if (this.dragging && node.id === this.currentEnteredId) {
       return 'highlight-entered';
     }
     return '';
+  }
+
+  // getPath(object: FoodNode, search: string): string[] {
+  //   if (object.id === search) return [object.name];
+  //   else if ((object.children) || Array.isArray(object)) {
+  //       let children = object.children;
+  //       for (let child of children) {
+  //           let result = this.getPath(child, search);
+  //           if (result) {
+  //               if (object.id )result.unshift(object.name);
+  //               return result;
+  //           }
+  //       }
+  //   }
+  // }
+
+  getPath(data: FoodNode[], nodeId: string) {
+    let result: string[] = [];
+    data.forEach((node) => {
+      if (node.id === nodeId) {
+        result.push(node.id);
+      } else if (node.children) {
+        let found = this.getPath(node.children, nodeId);
+        if (found.length) {
+          result = result.concat(node.id);
+        }
+      }
+    });
+    return result;
   }
   /*
   cdkDragStarted
