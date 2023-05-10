@@ -13,6 +13,7 @@
       *matTreeNodeDef="let node"
       matTreeNodePadding
       cdkDrag
+      [id]="'node-'+node.id"
       [cdkDragData]="node"
       (cdkDragStarted)="dragStarted($event,node)"
       (cdkDragReleased)="dragReleased($event,node)"
@@ -27,6 +28,7 @@
       *matTreeNodeDef="let node;when: hasChild"
       matTreeNodePadding
       cdkDrag
+      [id]="'node-'+node.id"
       [cdkDragData]="node"
       (cdkDragStarted)="dragStarted($event,node)"
       (cdkDragReleased)="dragReleased($event,node)"
@@ -61,6 +63,7 @@
       *matTreeNodeDef="let node"
       matTreeNodePadding
       cdkDrag
+      [id]="'node-'+node.id"
       [cdkDragData]="node"
       (cdkDragStarted)="dragStarted($event,node)"
       (cdkDragReleased)="dragReleased($event,node)"
@@ -75,6 +78,7 @@
       *matTreeNodeDef="let node;when: hasChild"
       matTreeNodePadding
       cdkDrag
+      [id]="'node-'+node.id"
       [cdkDragData]="node"
       (cdkDragStarted)="dragStarted($event,node)"
       (cdkDragReleased)="dragReleased($event,node)"

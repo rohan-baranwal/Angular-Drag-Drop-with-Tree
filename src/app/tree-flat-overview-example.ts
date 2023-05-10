@@ -135,6 +135,7 @@ interface ExampleFlatNode {
   expandable: boolean;
   name: string;
   level: number;
+  id: string;
 }
 
 /**
@@ -150,6 +151,7 @@ export class TreeFlatOverviewExample {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       level: level,
+      id: node.id,
     };
   };
 
