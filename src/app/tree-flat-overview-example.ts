@@ -271,19 +271,6 @@ export class TreeFlatOverviewExample {
       }
     }
     return undefined;
-
-    // data.forEach((node) => {
-    //   if (node.id === nodeId) {
-    //     this.pathOfDrop.push(node.id);
-    //   } else if (node.children) {
-    //     let found = this.getPath(node.children, nodeId);
-    //     if (found.length) {
-    //       this.pathOfDrop.push(node.id);
-    //       // return this.pathOfDrop;
-    //     }
-    //   }
-    // });
-    // return this.pathOfDrop;
   }
 
   // const getAncestors = (target, children, ancestors = []) => {
