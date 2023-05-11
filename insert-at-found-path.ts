@@ -112,6 +112,23 @@ const TREE_DATA2: FoodNode[] = [
   },
 ];
 
+let foundNode: FoodNode;
+const findNodeToPush = (data: FoodNode[], toFind: string): void => {
+  const found = data.find(e => e.id === toFind);
+  console.log(data, toFind, found);
+  if (!found && data.length) {
+    data.forEach(e => {
+      if (e.children && e.children.length) {
+        {
+          findNodeToPush(e.children, toFind);
+        }
+      }
+    })
+  } else if (found) {
+    foundNode = found;
+  }
+}
+
 const getPath = (data: FoodNode[], nodeId: string, res: string[] = []): string[] | undefined => {
   for (let node of data) {
     if (node.id === nodeId) {
@@ -145,7 +162,7 @@ const insertAtPath = (pathToInsert: string[], data: FoodNode[]) => {
   }
 }
 
-const testMethod = (): void => {
+const insertCheck = (): void => {
   const path = getPath(TREE_DATA, 'id-Brussels');
   console.log("data before -> ", TREE_DATA, path);
   if (path && path.length > 0) {
@@ -153,4 +170,9 @@ const testMethod = (): void => {
   }
   console.log("data after -> ", TREE_DATA, path);
 }
-testMethod();
+
+const findToPushCheck = (): void => {
+  findNodeToPush(TREE_DATA2, 'id-Gabbs');
+  console.log(foundNode);
+}
+findToPushCheck();
